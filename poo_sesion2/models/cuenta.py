@@ -78,4 +78,28 @@ class CuentaBancaria:
     def cerrar(self) -> None:
         #Cerrar la cuenta, no va a permitir mas operaciones.
         self._activa = False
-        
+
+    # metodos auxiliares de detalle.
+
+    def _set_saldo_inicial(self, saldo_inicial: float) -> None:
+        saldo_inicial = float(saldo_inicial)
+        if saldo_inicial < 0:
+            raise ValueError("usted que piensa de la vida?, el inicial no puede ser una deuda.")
+        self._saldo = saldo_inicial
+
+    def _normalizar_monto(self, monto: float) -> float:
+        monto = float(monto)
+        if monto <= 0:
+            raise ValueError("el monto debe ser mayor que cero")
+        return monto
+
+    def _asegurar_activa(self) -> None:
+        if not self._activa:
+            raise ValueError("no podemos operar sobre una cuenta inactiva")
+
+    def __str__(self) -> str:
+        estado = "activa" if self._activa else "cerrada"
+        return (
+            f"CuentaBancaria(id={self._id}, titular='{self._titular}')"
+            f"Saldo={self._saldo:.2f}, estado={estado}"
+        )
