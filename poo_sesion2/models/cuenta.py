@@ -24,3 +24,39 @@ class CuentaBancaria:
         self._set_saldo_incial(saldo_inicial)
 
         self._activa: bool = True
+
+        # Propiedades (API pública)
+
+        @property
+        # id de solo lectura
+        def id(self) -> int:
+            return self._id
+
+        @property
+        def titular(self) -> str:
+            # titular de solo lectura
+            return self._titular
+
+        @titular.setter
+        def titular(self, value: str) -> None:
+            # escritura controlada del titular
+            if value is None:
+                raise ValueError("El titular no puede estar None")
+            value = str(value).strip()
+            if not value:
+                raise ValueError("El titular no puede estar Vacio")
+            self._titular = value
+
+        @property
+        def saldo(self) -> float:
+            # saldo que solo sea de lectura desde fuera.
+            #la modificacion debe pasar unicamente por las funciones de consignar y retirar para proteger las reglas de negocio
+
+            return self._saldo
+
+        @property
+        def activa(self) -> bool:
+            # indicamos si la cuenta esta activa.
+            return self._activa
+
+    
