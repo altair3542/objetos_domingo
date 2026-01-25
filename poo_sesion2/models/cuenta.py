@@ -59,4 +59,23 @@ class CuentaBancaria:
             # indicamos si la cuenta esta activa.
             return self._activa
 
-    
+    # metodos de negocio
+    def consignar(self, monto: float) -> None:
+        # aumentar el saldo de la cuenta si esta está activa y el monto es valido
+        self._asegurar_activa()
+        monto = self._normalizar_monto(monto)
+        self._saldo += monto
+
+    def retirar(self, monto: float) -> None:
+        self._asegurar_activa()
+        monto = self._normalizar_monto(monto)
+
+        if monto > self._saldo:
+            raise ValueError("paila, no tiene saldo")
+        self._saldo -= monto
+
+
+    def cerrar(self) -> None:
+        #Cerrar la cuenta, no va a permitir mas operaciones.
+        self._activa = False
+        
