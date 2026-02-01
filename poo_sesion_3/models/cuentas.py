@@ -121,7 +121,6 @@ class CuentaBase:
             f"saldo={self._saldo:.2f}, estado={estado})"
         )
 
-
 class CuentaAhorros(CuentaBase):
     """
     Cuenta de ahorros:
